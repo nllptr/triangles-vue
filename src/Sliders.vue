@@ -60,9 +60,38 @@ module.exports = {
     margin: 0 100px;
   }
 
-  .slider {
+  input[type=range] {
+    -webkit-appearance: none;
     margin-bottom: 100px;
-    width: 100%;
     height: 30px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 15px;
+    background: #ddd;
+    border: none;
+    border-radius: 3px;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 45px;
+    width: 20px;
+    /* border-radius: 50%; */
+    border-radius: 3px;
+    background: goldenrod;
+    margin-top: -15px;
+  }
+
+  input[type=range]:focus {
+    outline: none;
+  }
+
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #ccc;
   }
 </style>
