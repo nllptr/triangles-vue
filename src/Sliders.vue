@@ -12,26 +12,6 @@
 <script>
 module.exports = {
   props: ["a", "b", "c"],
-  computed: {
-    aMax: function() {
-      return this.b + this.c - 1
-    },
-    aMin: function() {
-      return Math.max(Math.abs(this.b - this.c), 1)
-    },
-    bMax: function() {
-      return this.a + this.c - 1
-    },
-    bMin: function() {
-      return Math.max(Math.abs(this.a - this.c), 1)
-    },
-    cMax: function() {
-      return this.a + this.b - 1
-    },
-    cMin: function() {
-      return Math.max(Math.abs(this.a - this.b), 1)
-    },
-  },
   methods: {
     updateA: function() {
       this.$emit("update:a", parseInt(this.$refs.sliderA.value))
@@ -79,11 +59,11 @@ module.exports = {
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: none;
-    height: 45px;
-    width: 20px;
-    border-radius: 3px;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
     background: goldenrod;
-    margin-top: -15px;
+    margin-top: -20px;
   }
 
   input[type=range]:focus {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="type">{{ triangleType }}</div>
-    <canvas ref="output" height="600" width="600" v-on:update="updateCanvas"></canvas>
+    <canvas ref="output" height="600" width="600" v-on:update="drawCanvas"></canvas>
   </div>
 </template>
 
@@ -101,13 +101,10 @@ module.exports = {
       } else {
         this.triangleType = 'Not a valid triangle'
       }
-    },
-    updateCanvas: function() {
-      this.drawCanvas()
     }
   },
   mounted: function() {
-    this.updateCanvas()
+    this.drawCanvas()
   }
 }
 </script>
