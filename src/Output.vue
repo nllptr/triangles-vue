@@ -47,7 +47,9 @@ module.exports = {
       const r1 = this.c * this.scale
 
       this.valid = true
-      if ((d >= r0 + r1) || (d < Math.abs(r0 - r1)) || (d == 0 && r0 == r2)) {
+      if ((this.a >= this.b + this.c || this.b >= this.a + this.c || this.c >= this.a + this.b) 
+        || (d < Math.abs(r0 - r1))
+        || (d == 0 && r0 == r2)) {
         this.valid = false
       }
 
@@ -71,32 +73,34 @@ module.exports = {
   methods: {
     drawCanvas: function() {
       this.ctx.clearRect(0, 0, 600, 600)
-      this.ctx.translate(300 - this.centerX, 300 + this.centerY)
-      this.ctx.beginPath()
-      this.ctx.moveTo(...this.pointA)
-      this.ctx.lineTo(...this.pointB)
-      this.ctx.lineTo(...this.pointC)
-      this.ctx.closePath()
-      if (!this.valid) {
-        this.triangleType = 'Not a valid triangle'
-      } else if(this.a == this.b && this.b == this.c) {
-        this.ctx.fillStyle = 'green'
-        this.ctx.fill()
-        this.ctx.strokeStyle = 'green'
-        this.ctx.stroke()
-        this.triangleType = 'Equilateral'
-      } else if (this.a == this.b || this.a == this.c || this.b == this.c) {
-        this.ctx.fillStyle = 'purple'
-        this.ctx.fill()
-        this.ctx.strokeStyle = 'purple'
-        this.ctx.stroke()
-        this.triangleType = 'Isosceles'
+      if(this.valid) {
+        this.ctx.translate(300 - this.centerX, 300 + this.centerY)
+        this.ctx.beginPath()
+        this.ctx.moveTo(...this.pointA)
+        this.ctx.lineTo(...this.pointB)
+        this.ctx.lineTo(...this.pointC)
+        this.ctx.closePath()
+        if(this.a == this.b && this.b == this.c) {
+          this.ctx.fillStyle = 'green'
+          this.ctx.fill()
+          this.ctx.strokeStyle = 'green'
+          this.ctx.stroke()
+          this.triangleType = 'Equilateral'
+        } else if (this.a == this.b || this.a == this.c || this.b == this.c) {
+          this.ctx.fillStyle = 'purple'
+          this.ctx.fill()
+          this.ctx.strokeStyle = 'purple'
+          this.ctx.stroke()
+          this.triangleType = 'Isosceles'
+        } else {
+          this.ctx.strokeStyle = '#2c3e50'
+          this.ctx.stroke()
+          this.triangleType = 'Scalene'
+        }
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0)
       } else {
-        this.ctx.strokeStyle = '#2c3e50'
-        this.ctx.stroke()
-        this.triangleType = 'Scalene'
+        this.triangleType = 'Not a valid triangle'
       }
-      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     },
     updateCanvas: function() {
       this.drawCanvas()
