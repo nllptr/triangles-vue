@@ -14,9 +14,9 @@ export default {
   name: 'app',
   data () {
     return {
-      a: 150,
-      b: 150,
-      c: 150
+      a: 3,
+      b: 3,
+      c: 3
     }
   },
   components: {

@@ -11,7 +11,9 @@ module.exports = {
   data: function() {
     return {
       pointA: [0, 0],
-      triangleType: 'Equilateral'
+      triangleType: 'Equilateral',
+      scale: 100,
+      valid: true
     }
   },
   computed: {
@@ -33,25 +35,20 @@ module.exports = {
       return (maxY + Math.abs(minY)) / 2
     },
     pointB: function() {
-      return [this.pointA[0] + this.a, this.pointA[1]]
+      return [this.pointA[0] + this.a * this.scale, this.pointA[1]]
     },
     pointC: function() {
       // Using method found on http://paulbourke.net/geometry/circlesphere/
       // Search in page for "Intersection of two circles"
       const dx = this.pointB[0] - this.pointA[0]
       const dy = this.pointB[1] - this.pointA[1]
-      const d = this.a
-      const r0 = this.b
-      const r1 = this.c
+      const d = this.a * this.scale
+      const r0 = this.b * this.scale
+      const r1 = this.c * this.scale
 
-      if (d > r0 + r1) {
-        window.alert('Unhandled edge case :( I thought I had already taken care of this.')
-      }
-      if (d < Math.abs(r0 - r1)) {
-        window.alert('Unhandled edge case :( I thought I had already taken care of this.')
-      }
-      if (d == 0 && r0 == r2) {
-        window.alert('Unhandled edge case :( I thought I had already taken care of this.')
+      this.valid = true
+      if ((d >= r0 + r1) || (d < Math.abs(r0 - r1)) || (d == 0 && r0 == r2)) {
+        this.valid = false
       }
 
       const a = (r0 * r0 - r1 * r1 + d * d) / (2 * d)
@@ -74,15 +71,15 @@ module.exports = {
   methods: {
     drawCanvas: function() {
       this.ctx.clearRect(0, 0, 600, 600)
-      console.log("centerX:",this.centerX)
-      console.log(this.centerY)
       this.ctx.translate(300 - this.centerX, 300 + this.centerY)
       this.ctx.beginPath()
       this.ctx.moveTo(...this.pointA)
       this.ctx.lineTo(...this.pointB)
       this.ctx.lineTo(...this.pointC)
       this.ctx.closePath()
-      if(this.a == this.b && this.b == this.c) {
+      if (!this.valid) {
+        this.triangleType = 'Not a valid triangle'
+      } else if(this.a == this.b && this.b == this.c) {
         this.ctx.fillStyle = 'green'
         this.ctx.fill()
         this.ctx.strokeStyle = 'green'

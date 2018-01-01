@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="textContainer">{{ a }}</div>
-    <div class="sliderContainer"><input ref="sliderA" class="slider" type="range" v-bind:min="aMin" v-bind:max="aMax" @change="updateA"></div>
+    <div class="sliderContainer"><input ref="sliderA" class="slider" type="range" min="1" max="10" @input="updateA"></div>
     <div class="textContainer">{{ b }}</div>
-    <div class="sliderContainer"><input ref="sliderB" class="slider" type="range" v-bind:min="bMin" v-bind:max="bMax" @change="updateB"></div>
+    <div class="sliderContainer"><input ref="sliderB" class="slider" type="range" min="1" max="10" @input="updateB"></div>
     <div class="textContainer">{{ c }}</div>
-    <div class="sliderContainer"><input ref="sliderC" class="slider" type="range" v-bind:min="cMin" v-bind:max="cMax" @change="updateC"></div>
+    <div class="sliderContainer"><input ref="sliderC" class="slider" type="range" min="1" max="10" @input="updateC"></div>
   </div>
 </template>
 
@@ -81,7 +81,6 @@ module.exports = {
     border: none;
     height: 45px;
     width: 20px;
-    /* border-radius: 50%; */
     border-radius: 3px;
     background: goldenrod;
     margin-top: -15px;
